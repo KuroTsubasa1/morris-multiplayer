@@ -7,10 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    // https://coolors.co/201e1f-ff4000-faaa8d-feefdd-50b2c0
+
     private Rigidbody _rb;
     private float _speed = 5f;
     private float _maxSpeed = 5f;
-    private float _jumpPower = 15;
+    private float _jumpPower = 20;
 
     private bool _jumpState = true;
 
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
         // movement for keyboard
         if (Input.GetKey(KeyCode.D))
-        {   
+        {
             _rb.AddForce(_speed, 0, 0, ForceMode.VelocityChange);
         }
 
@@ -47,9 +49,15 @@ public class PlayerController : MonoBehaviour
             _rb.AddForce(0, _jumpPower, 0, ForceMode.VelocityChange);
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            var currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.buildIndex);
+        }
+
         // check x  velocity is positive
         if (_rb.velocity.x >= 0)
-        {   
+        {
             // check if x velocity has reached max velocity
             if (_rb.velocity.x > _maxSpeed)
             {
@@ -66,16 +74,16 @@ public class PlayerController : MonoBehaviour
         }
 
         _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
-        
+
         // check y velocity is positive
         if (_rb.velocity.y > 0)
         {
-           // _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+            // _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
         }
         else
         {
             // apply more force when falling 
-           // _rb.velocity = new Vector3(0, _rb.velocity.y * 1.2f, 0);
+            _rb.velocity = new Vector3(0, _rb.velocity.y * 1.005f, 0);
         }
     }
 
