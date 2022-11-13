@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     // https://coolors.co/201e1f-ff4000-faaa8d-feefdd-50b2c0
 
     private Rigidbody _rb;
-    private float _speed = 5f;
-    private float _maxSpeed = 5f;
+    private float _speed = 4f;
+    private float _maxSpeed = 4f;
     private float _jumpPower = 20;
 
-    private bool _jumpState = true;
+    private bool _jumpState = false;
 
     // Start is called before the first frame update
     void Start()
@@ -83,8 +83,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             // apply more force when falling 
-            _rb.velocity = new Vector3(0, _rb.velocity.y * 1.005f, 0);
+            // _rb.velocity = new Vector3(0, _rb.velocity.y * 1.005f, 0);
         }
+
+
+        Debug.Log("jumpState " + _jumpState);
     }
 
     private void OnCollisionEnter(Collision collision)
