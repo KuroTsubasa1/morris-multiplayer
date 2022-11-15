@@ -123,6 +123,29 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &27310781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1477605550639734, guid: 598b6bc40260ea04b9652cd28338a36e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1969213383}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &27310788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27310781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268bd1da2e284b3cbd9673e33e3fba51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 7
+  jumpSpeed: 20
+  gravity: 30
+  maxJumps: 2
+  cameraTransform: {fileID: 1812252010}
 --- !u!1 &40982481
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1178,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1812252010 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4510748207931070, guid: 598b6bc40260ea04b9652cd28338a36e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1969213383}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1855218469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1578,10 +1607,25 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0.99607843
       objectReference: {fileID: 0}
+    - target: {fileID: 114451297891730610, guid: 598b6bc40260ea04b9652cd28338a36e,
+        type: 3}
+      propertyPath: isInDebugMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 114454446147830310, guid: 598b6bc40260ea04b9652cd28338a36e,
         type: 3}
       propertyPath: ignoreControllerMomentum
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114786470805385520, guid: 598b6bc40260ea04b9652cd28338a36e,
+        type: 3}
+      propertyPath: jumpSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114786470805385520, guid: 598b6bc40260ea04b9652cd28338a36e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114786470805385520, guid: 598b6bc40260ea04b9652cd28338a36e,
         type: 3}
@@ -1591,7 +1635,7 @@ PrefabInstance:
     - target: {fileID: 114786470805385520, guid: 598b6bc40260ea04b9652cd28338a36e,
         type: 3}
       propertyPath: jumpDuration
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114786470805385520, guid: 598b6bc40260ea04b9652cd28338a36e,
         type: 3}
@@ -1613,7 +1657,8 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114786470805385520, guid: 598b6bc40260ea04b9652cd28338a36e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 598b6bc40260ea04b9652cd28338a36e, type: 3}
 --- !u!1 &2021936626
 GameObject:

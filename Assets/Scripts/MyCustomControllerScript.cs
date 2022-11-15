@@ -17,10 +17,8 @@ namespace DefaultNamespace
         public int maxJumps = 2;
 
         //Jump key variables;
-        bool jumpInputIsLocked = false;
-        bool jumpKeyWasPressed = false;
-        bool jumpKeyWasLetGo = false;
-        bool jumpKeyIsPressed = false;
+        bool jumpInputIsLocked;
+        bool jumpKeyIsPressed;
 
         Vector3 lastVelocity = Vector3.zero;
 
@@ -55,7 +53,8 @@ namespace DefaultNamespace
             */
 
             if (jumpKeyIsPressed)
-            {
+            {   
+                // lock jump to simulate key down
                 jumpInputIsLocked = true;
             }
             
@@ -92,14 +91,16 @@ namespace DefaultNamespace
             {
                 currentVerticalSpeed -= gravity * Time.deltaTime;
 
+                // if player starts falling enable second jump
                 if (currentVerticalSpeed < 0)
-                {
+                {   
                     jumpInputIsLocked = false;
                 }
             }
             else
             {
                 if (currentVerticalSpeed <= 0f)
+                    // unlock jump when grounded
                     jumpInputIsLocked = false;
                     currentVerticalSpeed = 0f;
             }
@@ -111,7 +112,6 @@ namespace DefaultNamespace
                 currentVerticalSpeed = jumpSpeed;
                 isGrounded = false;
                 _countJumps++;
-                //jumpKeyIsPressed = false;
             }
 
             //Add vertical velocity;
@@ -126,15 +126,9 @@ namespace DefaultNamespace
             if (isGrounded)
             {
                 _countJumps = 0;
+                // unlock jump when grounded
                 jumpInputIsLocked = false;
-               // jumpKeyIsPressed = false;
             }
-
-            //jumpKeyIsPressed = false;
-
-          
-            Debug.Log("Jumpcounter: " + _countJumps);
-            Debug.Log("jumpInputIsLocked: " + jumpInputIsLocked);
         }
 
         private Vector3 CalculateMovementDirection()
