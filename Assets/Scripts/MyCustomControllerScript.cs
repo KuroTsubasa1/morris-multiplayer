@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using CMF;
 
 namespace DefaultNamespace
@@ -15,6 +16,12 @@ namespace DefaultNamespace
         private int _countJumps = 0;
         public int maxJumps = 2;
 
+        //Jump key variables;
+        bool jumpInputIsLocked = false;
+        bool jumpKeyWasPressed = false;
+        bool jumpKeyWasLetGo = false;
+        bool jumpKeyIsPressed = false;
+
         Vector3 lastVelocity = Vector3.zero;
 
         public Transform cameraTransform;
@@ -27,6 +34,40 @@ namespace DefaultNamespace
             tr = transform;
             mover = GetComponent<Mover>();
             characterInput = GetComponent<CharacterInput>();
+        }
+
+        protected virtual bool IsJumpKeyPressed()
+        {
+            //If no character input script is attached to this object, return;
+            if (characterInput == null)
+                return false;
+
+            return characterInput.IsJumpKeyPressed();
+        }
+
+        void HandleJumpKeyInput()
+        {
+            bool newJumpKeyPressedState = IsJumpKeyPressed();
+    
+            /*
+            if (jumpKeyIsPressed == false && _newJumpKeyPressedState)
+                jumpKeyWasPressed = true;
+            */
+
+            if (jumpKeyIsPressed)
+            {
+                jumpInputIsLocked = true;
+            }
+            
+
+            jumpKeyIsPressed = newJumpKeyPressedState;
+            Debug.Log("Update: jumpKeyIsPressed " + jumpKeyIsPressed);
+           
+        }
+
+        private void Update()
+        {
+            HandleJumpKeyInput();
         }
 
         void FixedUpdate()
@@ -50,20 +91,27 @@ namespace DefaultNamespace
             if (!isGrounded)
             {
                 currentVerticalSpeed -= gravity * Time.deltaTime;
+
+                if (currentVerticalSpeed < 0)
+                {
+                    jumpInputIsLocked = false;
+                }
             }
             else
             {
                 if (currentVerticalSpeed <= 0f)
+                    jumpInputIsLocked = false;
                     currentVerticalSpeed = 0f;
             }
 
             //Handle jumping;
-            if ((characterInput != null) && _countJumps < maxJumps && characterInput.IsJumpKeyPressed()) // isGrounded
+            if (jumpKeyIsPressed &&  _countJumps < maxJumps && !jumpInputIsLocked)
             {
                 OnJumpStart();
                 currentVerticalSpeed = jumpSpeed;
                 isGrounded = false;
                 _countJumps++;
+                //jumpKeyIsPressed = false;
             }
 
             //Add vertical velocity;
@@ -78,7 +126,15 @@ namespace DefaultNamespace
             if (isGrounded)
             {
                 _countJumps = 0;
+                jumpInputIsLocked = false;
+               // jumpKeyIsPressed = false;
             }
+
+            //jumpKeyIsPressed = false;
+
+          
+            Debug.Log("Jumpcounter: " + _countJumps);
+            Debug.Log("jumpInputIsLocked: " + jumpInputIsLocked);
         }
 
         private Vector3 CalculateMovementDirection()
