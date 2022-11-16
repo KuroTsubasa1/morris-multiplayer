@@ -58,10 +58,8 @@ namespace DefaultNamespace
                 jumpInputIsLocked = true;
             }
             
-
             jumpKeyIsPressed = newJumpKeyPressedState;
-            Debug.Log("Update: jumpKeyIsPressed " + jumpKeyIsPressed);
-           
+
         }
 
         private void Update()
